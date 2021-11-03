@@ -3,7 +3,7 @@ const app = express();
 const port = 3000;
 const url = require("url");
 
-const transactions = [];
+const transactions = []; // initialize transaction list
 //sort transaction list by the date of transaction. this way we can go through the first record to the last and know it in order of how to spend the points
 function sortTransactions() {
   transactions.sort((a, b) => a.timestamp.localeCompare(b.timestamp));
@@ -111,15 +111,15 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/public/index.html");
 });
 //transaction route
-app.get("/transaction/", (req, res) => {
-  const queryObject = url.parse(req.url, true).query;
-  if (Object.entries(queryObject).length !== 3) {
+app.post("/transaction/", (req, res) => {
+  const queryTrans = req.body;
+  if (Object.entries(queryTrans).length !== 3) {
     let errorMessage =
       "ERROR: Need correct parameters to be entered in the correct format. Ex: http://localhost:3000/transaction/?payer=DANNON&points=1000&timestamp=2020-11-02T14:00:00Z";
     res.send(errorMessage);
   } else {
-    queryObject.points = parseInt(queryObject.points);
-    getTransaction(queryObject);
+    queryTrans.points = parseInt(queryTrans.points);
+    getTransaction(queryTrans);
     res.send(sortTransactions());
   }
 });

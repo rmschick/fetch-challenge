@@ -69,27 +69,30 @@
           <br>run : 'node app.js' to start the web service 
           <br><br>
           <h3>Navigating the web service:</h3> 
-          <b>Transaction:</b>
+          <b>Transaction: localhost:3000/</b>
           <br>
-          <b>http://localhost:3000/transaction/?payer=USERINPUT&points=USERINPUT&amp;timestamp=YYYY-MM-DDTHH:MM:SSZ</b>
+           From what I know of industry standard/testing with the experience I have I decided to go with Postman for the POST method when it came to transaction. It's easy, quick, and gives a developer more testing tools and insight into what really is going on. I believe its more true to what backend development would be in a company than to retrieve information from the URL or user without a frontend. 
+          <br><br>To add transactions to the web server, start and run the web service and open up Postman and create a new workspace
+          <br>In the input line marked 'Enter request URL' enter 'localhost:3000/transaction'
+          <br>Go to 'Body' and select 'raw' and change to 'JSON'
+          <br><br>The template to add a transaction is as follows:
+          <br>{
+          <br><span class="tab"></span>"payer" : "USERINPUT",
+          <br><span class="tab"></span>"points" : "NUMBER",
+          <br><span class="tab"></span>"timestamp" : "YYYY-MM-DDTHH:MM:SSZ",
+          <br>{
           <br>
-          To add transactions to the web server, the template in the URL must be used correctly.
-          <br>USERINPUT can be whatever the user would like to enter.
-          <i>note: points will be treated like an integer</i><br>
-          timestamp=YYYY-MM-DDTHH:MM:SSZ will be the timestamp of the transaction. This determines which points will be spent first.
+          Click 'Send'
           <br>This will allow the user to use the other commands to spend points and check the balances.
           <br><br>
            
           <b>Spend: localhost:3000/</b> 
           <br>
-          From what I know of industry standard/testing with the experience I have, I decided
-          to go with Postman for the POST method when it came to spend. It's
-          easy, quick, and gives a developer more testing tools and insight into
-          what really is going on. 
+          Again, I went with Postman for the POST method when it came to spend. It's easy, quick, and gives a developer more testing tools and insight into what really is going on. 
           <br>
           After starting and running the web service,
           open up Postman and create a new workspace 
-          <br>
+          <br><br>
           In the input line marked
           'Enter request URL'  enter 'localhost:3000/spend' Go to 'Body' and
           select 'raw' and change to 'JSON' 
