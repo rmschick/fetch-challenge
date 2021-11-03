@@ -22,6 +22,7 @@ How to start the web service:
         
 Navigating the web service:
         Transaction: 
+                
                 From what I know of industry standard/testing with the experience I have I decided to go with Postman for the POST method when it came to transaction. It's easy,                  quick, and gives a developer more testing tools and insight into what really is going on. I believe its more true to what backend development would be in a                       company than to retrieve information from the URL or user without a frontend. 
 
                 To add transactions to the web server, start and run the web service, open up Postman, and create a new workspace
@@ -57,6 +58,7 @@ Navigating the web service:
                 This route is made to simply check the balances of the payers. This should show the total balance of each payer that has been added through the transaction path
 
 Tested using values:
+        
         Postman
         localhost:3000/transaction
         These are all seperate POSTS, please utilize a test POST one at a time. Or create your own!
