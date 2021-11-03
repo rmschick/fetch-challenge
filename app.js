@@ -112,14 +112,18 @@ app.get("/", (req, res) => {
 });
 //transaction route
 app.post("/transaction/", (req, res) => {
-  const queryTrans = req.body;
-  if (Object.entries(queryTrans).length !== 3) {
+  const { payer, points, timestamp } = req.body;
+  if (!payer || !points || !timestamp) {
     let errorMessage =
-      "ERROR: Need correct parameters to be entered in the correct format. Ex: http://localhost:3000/transaction/?payer=DANNON&points=1000&timestamp=2020-11-02T14:00:00Z";
+      "ERROR: Please enter payer, points, and timestamp as parameters";
     res.send(errorMessage);
   } else {
-    queryTrans.points = parseInt(queryTrans.points);
-    getTransaction(queryTrans);
+    const data = {
+      payer,
+      points: parseInt(points),
+      timestamp,
+    };
+    getTransaction(data);
     res.send(sortTransactions());
   }
 });
