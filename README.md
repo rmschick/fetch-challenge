@@ -12,6 +12,7 @@ Utilize:  Node.js v14.16.1
    
 
 How to start the web service:
+        
         Download the project from the public repository : https://github.com/rmschick99/fetchBackendExercise.git
 
         Open favorite IDE and open a terminal to the root directory
@@ -21,9 +22,9 @@ How to start the web service:
         run : node app.js to start the web service
         
 Navigating the web service:
-        Transaction: 
-                
-                From what I know of industry standard/testing with the experience I have I decided to go with Postman for the POST method when it came to transaction. It's easy,                  quick, and gives a developer more testing tools and insight into what really is going on. I believe its more true to what backend development would be in a                       company than to retrieve information from the URL or user without a frontend. 
+        
+        Transaction:         
+                From what I know of industry standard/testing with the experience I have I decided to go with Postman for the POST method when it came to transaction. It's easy,                 quick, and gives a developer more testing tools and insight into what really is going on. I believe its more true to what backend development would be in a                       company than to retrieve information from the URL or user without a frontend. 
 
                 To add transactions to the web server, start and run the web service, open up Postman, and create a new workspace
 
@@ -42,7 +43,7 @@ Navigating the web service:
                 This will allow the user to use the other commands to spend points and check the balances.
 
         Spend:
-                Again, I went with Postman for the POST method when it came to spend. It's easy, quick, and gives a developer more testing tools and insight into what really is going on. 
+                Again, I went with Postman for the POST method when it came to spend. It's easy, quick, and gives a developer more testing tools and insight into what really is                        going on. 
 
                 After starting and running the web service, open up Postman and create a new workspace
 
