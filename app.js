@@ -13,8 +13,11 @@ const transactions = [
 
 function sortTransactions() {
   transactions.sort((a, b) => a.timestamp.localeCompare(b.timestamp));
-  let sortedByTimeTrans = JSON.parse(JSON.stringify(transactions));
-  return sortedByTimeTrans;
+  return transactions;
+}
+
+function updateBalance(pointsSpent, balance) {
+  console.log(balance);
 }
 
 function getBalance() {
@@ -55,7 +58,8 @@ function spendPoints(points) {
   }
   //if the total points are less than the points trying to be spent, let the user know
   if (totalPointsFromPayers < points) {
-    let insufficientFunds = `Insufficient funds. Cannot redeem ${points} points. Only a total of ${totalPoints} points from all payers.`;
+    let insufficientFunds = `Insufficient funds. Cannot redeem ${points} points because there is only a total of ${totalPointsFromPayers} points from all payers.`;
+    console.log(insufficientFunds);
     return insufficientFunds;
   } else {
     /*Else, start moving through the trasaction list from oldest points to most recent and update objects accordingly*/
@@ -74,10 +78,11 @@ function spendPoints(points) {
             pointsSpentPerPayer[i].points = //substract the from the proper payer
               pointsSpentPerPayer[i].points - sortByDateTrans[j].points;
             points -= sortByDateTrans[j].points;
-            delete sortByDateTrans[j]; //delete the most recent transaction
+            sortByDateTrans[j].points = 0; //delete the most recent transaction
             break;
           } else {
             pointsSpentPerPayer[i].points -= points; //if the payer balance is more than the remaining points to be spent, just substract the spent points and set it to zero
+            sortByDateTrans[j].points -= points;
             points = 0;
             break;
           }
@@ -86,6 +91,7 @@ function spendPoints(points) {
       j++;
     } while (points > 0);
   }
+  return pointsSpentPerPayer;
 }
 
 app.use(express.json()); //allows us to parse json from incoming requests
@@ -101,6 +107,7 @@ app.get("/transaction", (req, res) => {
 app.post("/spend", (req, res) => {
   const { points } = req.body;
   let pointsList = spendPoints(points);
+  updateBalance(pointsList, getBalance());
   res.send(pointsList);
 });
 
