@@ -24,7 +24,7 @@ Navigating the web service:
         Transaction: 
                 From what I know of industry standard/testing with the experience I have I decided to go with Postman for the POST method when it came to transaction. It's easy, quick, and gives a developer more testing tools and insight into what really is going on. I believe its more true to what backend development would be in a company than to retrieve information from the URL or user without a frontend. 
 
-                To add transactions to the web server, start and run the web service and open up Postman and create a new workspace
+                To add transactions to the web server, start and run the web service, open up Postman, and create a new workspace
 
                 In the input line marked 'Enter request URL' enter 'localhost:3000/transaction'
 
@@ -66,23 +66,24 @@ Tested using values:
                         "timestamp": "2020-11-02T14:00:00Z"
                 }
                 { 
-                        payer: 'UNILEVER', 
-                        points: 200, 
-                        timestamp: '2020-10-31T11:00:00Z' 
-                }
-                {       payer: 'DANNON', 
-                        points: -200, 
-                        timestamp: '2020-10-31T15:00:00Z' 
-                }
-                {
-                        payer: 'MILLER COORS',
-                        points: 1000,
-                        timestamp: '2020-11-01T14:00:00Z'
+                        "payer": "UNILEVER", 
+                        "points": 200, 
+                        "timestamp": "2020-10-31T11:00:00Z" 
                 }
                 {       
-                        payer: 'DANNON', 
-                        points: 300, 
-                        timestamp: '2020-10-31T10:00:00Z' 
+                        "payer": "DANNON", 
+                        "points": -200, 
+                        "timestamp": "2020-10-31T15:00:00Z" 
+                }
+                {
+                        "payer": "MILLER COORS",
+                        "points": 10000,
+                        "timestamp": "2020-11-01T14:00:00Z"
+                }
+                {       
+                        "payer": "DANNON", 
+                        "points": 300, 
+                        "timestamp": "2020-10-31T10:00:00Z" 
                 }
        
 
