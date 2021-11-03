@@ -2,6 +2,8 @@ const express = require("express");
 const axios = require("axios").default;
 const app = express();
 const port = 3000;
+const http = require("http");
+const fs = require("fs");
 
 const transactions = [
   { payer: "DANNON", points: 1000, timestamp: "2020-11-02T14:00:00Z" },
@@ -10,7 +12,7 @@ const transactions = [
   { payer: "MILLER COORS", points: 10000, timestamp: "2020-11-01T14:00:00Z" },
   { payer: "DANNON", points: 300, timestamp: "2020-10-31T10:00:00Z" },
 ];
-
+//sort transaction list by the date of transaction. this way we can go through the first record to the last and know it in order of how to spend the points
 function sortTransactions() {
   transactions.sort((a, b) => a.timestamp.localeCompare(b.timestamp));
   return transactions;
@@ -19,33 +21,38 @@ function sortTransactions() {
 function updateBalance(pointsSpent, balance) {
   console.log(balance);
 }
-
+//function returns the balance list of each payer
 function getBalance() {
   let sortByNameTrans = JSON.parse(JSON.stringify(transactions)); //copy the transaction object into a new object list
-  sortByNameTrans.sort((a, b) => a.payer.localeCompare(b.payer));
+  sortByNameTrans.sort((a, b) => a.payer.localeCompare(b.payer)); //we're sorting the list by names of payers so that it's easier to compare the current payer with the previous
 
-  let balance = null;
-  balance = [sortByNameTrans[0]];
-  delete balance[0].timestamp;
+  let balance = null; //zero out the balance
+  balance = [sortByNameTrans[0]]; //set the first balance
+  delete balance[0].timestamp; //delete the time stamp as we no longer need it
 
-  let addNewBalance = 1;
+  let addNewBalance = 1; //the position we will be adding the next balance into
 
+  //for as long as there's more transactions
   for (let i = 1; i < Object.keys(sortByNameTrans).length; i++) {
     if (
+      //compare whether the current payer matches with the previous payer in the list
       sortByNameTrans[i].payer.localeCompare(
         balance[addNewBalance - 1].payer
       ) === 0
     ) {
+      //if so, add the points to the balance list
       balance[addNewBalance - 1].points =
         balance[addNewBalance - 1].points + sortByNameTrans[i].points;
     } else {
+      //else add the new payer and points to the balance list
       balance[addNewBalance] = sortByNameTrans[i];
       delete balance[addNewBalance++].timestamp;
     }
   }
-  return balance;
+  return balance; //return balance list
 }
-
+///function first checks to see if the total amount of points the payers have is enough to cover the points trying to be spent
+//the function will then go through the transaction list and spend the point accordingly
 function spendPoints(points) {
   let sortByDateTrans = sortTransactions(); //get an array of object sorted by date
   let balanceList = getBalance(); //get an array of objects having the total balance of each payer
@@ -82,22 +89,23 @@ function spendPoints(points) {
             break;
           } else {
             pointsSpentPerPayer[i].points -= points; //if the payer balance is more than the remaining points to be spent, just substract the spent points and set it to zero
-            sortByDateTrans[j].points -= points;
+            sortByDateTrans[j].points -= points; //substract the points from the transaction list since we can still have points left over
             points = 0;
             break;
           }
         }
       }
       j++;
-    } while (points > 0);
+    } while (points > 0); //continue until we've spent all the points
   }
-  return pointsSpentPerPayer;
+  return pointsSpentPerPayer; //return list of payers and the points deducted
 }
 
 app.use(express.json()); //allows us to parse json from incoming requests
+app.use(express.static(__dirname));
 
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.sendFile(__dirname + "/public/index.html");
 });
 
 app.get("/transaction", (req, res) => {
