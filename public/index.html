@@ -67,22 +67,32 @@
           <br><br> run: 'npm install' to
           install modules and dependencies 
           <br>run : 'node app.js' to start the web service 
-          <br><br><h3>Navigating the web service:</h3> Transactions: <br><br>Spend: From what I
-          know of industry standard/testing with the experience I have, I decided
+          <br><br>
+          <h3>Navigating the web service:</h3> 
+          <b>localhost:3000/transaction/ </b>
+          <br><br>
+           
+          <b>Spend: localhost:3000/</b> 
+          <br>
+          From what I know of industry standard/testing with the experience I have, I decided
           to go with Postman for the POST method when it came to spend. It's
           easy, quick, and gives a developer more testing tools and insight into
           what really is going on. 
-          <br>After starting and running the web service,
+          <br>
+          After starting and running the web service,
           open up Postman and create a new workspace 
-          <br>In the input line marked
+          <br>
+          In the input line marked
           'Enter request URL'  enter 'localhost:3000/spend' Go to 'Body' and
           select 'raw' and change to 'JSON' 
-          <br>For testing purposes I went with
+          <br>
+          For testing purposes I went with
           {"points": 5000} as the input text Click send and the response will be
           recorded in the Body at the bottom. 
-          <br><br>Balances: To check the balances of
-          the payers, simply type 'localhost:3000/balances' and enter This
-          should show the total balance of each payer that has been added
+          <br><br>
+          <b>localhost:3000/balance</b>
+          <br>This route is made to simply check the balances of
+          the payers. This should show the total balance of each payer that has been added
           through the transaction path
         </p>
       </div>

@@ -1,8 +1,6 @@
 const express = require("express");
 const app = express();
 const port = 3000;
-const http = require("http");
-const fs = require("fs");
 
 const transactions = [
   { payer: "DANNON", points: 1000, timestamp: "2020-11-02T14:00:00Z" },
@@ -17,9 +15,6 @@ function sortTransactions() {
   return transactions;
 }
 
-function updateBalance(pointsSpent, balance) {
-  console.log(balance);
-}
 //function returns the balance list of each payer
 function getBalance() {
   if (Object.keys(transactions).length === 0) {
@@ -124,7 +119,6 @@ app.get("/transaction", (req, res) => {
 app.post("/spend", (req, res) => {
   const { points } = req.body;
   let pointsList = spendPoints(points);
-  updateBalance(pointsList, getBalance());
   res.send(pointsList);
 });
 
