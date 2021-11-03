@@ -1,18 +1,17 @@
 const express = require("express");
 const app = express();
 const port = 3000;
+const url = require("url");
 
-const transactions = [
-  { payer: "DANNON", points: 1000, timestamp: "2020-11-02T14:00:00Z" },
-  { payer: "UNILEVER", points: 200, timestamp: "2020-10-31T11:00:00Z" },
-  { payer: "DANNON", points: -200, timestamp: "2020-10-31T15:00:00Z" },
-  { payer: "MILLER COORS", points: 10000, timestamp: "2020-11-01T14:00:00Z" },
-  { payer: "DANNON", points: 300, timestamp: "2020-10-31T10:00:00Z" },
-];
+const transactions = [];
 //sort transaction list by the date of transaction. this way we can go through the first record to the last and know it in order of how to spend the points
 function sortTransactions() {
   transactions.sort((a, b) => a.timestamp.localeCompare(b.timestamp));
   return transactions;
+}
+//add URLquery to the transaction list
+function getTransaction(queryObject) {
+  transactions[Object.keys(transactions).length] = queryObject;
 }
 
 //function returns the balance list of each payer
@@ -107,21 +106,30 @@ function spendPoints(points) {
 
 app.use(express.json()); //allows us to parse json from incoming requests
 app.use(express.static(__dirname));
-
+//home page
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/public/index.html");
 });
-
-app.get("/transaction", (req, res) => {
-  res.send(sortTransactions());
+//transaction route
+app.get("/transaction/", (req, res) => {
+  const queryObject = url.parse(req.url, true).query;
+  if (Object.entries(queryObject).length !== 3) {
+    let errorMessage =
+      "ERROR: Need correct parameters to be entered in the correct format. Ex: http://localhost:3000/transaction/?payer=DANNON&points=1000&timestamp=2020-11-02T14:00:00Z";
+    res.send(errorMessage);
+  } else {
+    queryObject.points = parseInt(queryObject.points);
+    getTransaction(queryObject);
+    res.send(sortTransactions());
+  }
 });
-
+//spend route
 app.post("/spend", (req, res) => {
   const { points } = req.body;
   let pointsList = spendPoints(points);
   res.send(pointsList);
 });
-
+//balance route
 app.get("/balance", (req, res) => {
   let balance = getBalance();
   res.send(balance);

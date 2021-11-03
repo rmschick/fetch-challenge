@@ -69,7 +69,15 @@
           <br>run : 'node app.js' to start the web service 
           <br><br>
           <h3>Navigating the web service:</h3> 
-          <b>localhost:3000/transaction/ </b>
+          <b>Transaction:</b>
+          <br>
+          <b>http://localhost:3000/transaction/?payer=USERINPUT&points=USERINPUT&amp;timestamp=YYYY-MM-DDTHH:MM:SSZ</b>
+          <br>
+          To add transactions to the web server, the template in the URL must be used correctly.
+          <br>USERINPUT can be whatever the user would like to enter.
+          <i>note: points will be treated like an integer</i><br>
+          timestamp=YYYY-MM-DDTHH:MM:SSZ will be the timestamp of the transaction. This determines which points will be spent first.
+          <br>This will allow the user to use the other commands to spend points and check the balances.
           <br><br>
            
           <b>Spend: localhost:3000/</b> 
@@ -90,7 +98,7 @@
           {"points": 5000} as the input text Click send and the response will be
           recorded in the Body at the bottom. 
           <br><br>
-          <b>localhost:3000/balance</b>
+          <b>Balance: localhost:3000/balance</b>
           <br>This route is made to simply check the balances of
           the payers. This should show the total balance of each payer that has been added
           through the transaction path
