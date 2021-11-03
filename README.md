@@ -1,5 +1,8 @@
 # fetchBackendExercise
 
+Ryan Schick
+03 November 2021
+
 Fetch Rewards, Backend Apprenticeship. 
 
 Language: Javascript 

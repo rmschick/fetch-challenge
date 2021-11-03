@@ -1,5 +1,4 @@
 const express = require("express");
-const axios = require("axios").default;
 const app = express();
 const port = 3000;
 const http = require("http");
@@ -23,6 +22,11 @@ function updateBalance(pointsSpent, balance) {
 }
 //function returns the balance list of each payer
 function getBalance() {
+  if (Object.keys(transactions).length === 0) {
+    let noPayerBalances = `No transactions have been added. Please use '/transactions/' route to add payer, points, and timestamp.`;
+    console.log(noPayerBalances);
+    return noPayerBalances;
+  }
   let sortByNameTrans = JSON.parse(JSON.stringify(transactions)); //copy the transaction object into a new object list
   sortByNameTrans.sort((a, b) => a.payer.localeCompare(b.payer)); //we're sorting the list by names of payers so that it's easier to compare the current payer with the previous
 
@@ -54,6 +58,11 @@ function getBalance() {
 ///function first checks to see if the total amount of points the payers have is enough to cover the points trying to be spent
 //the function will then go through the transaction list and spend the point accordingly
 function spendPoints(points) {
+  if (Object.keys(transactions).length === 0) {
+    let noPayerBalances = `No transactions have been added. Please use '/transactions/' route to add payer, points, and timestamp.`;
+    console.log(noPayerBalances);
+    return noPayerBalances;
+  }
   let sortByDateTrans = sortTransactions(); //get an array of object sorted by date
   let balanceList = getBalance(); //get an array of objects having the total balance of each payer
   let pointsSpentPerPayer = balanceList; //copy that array over to not alter data
