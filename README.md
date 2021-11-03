@@ -6,10 +6,11 @@ Ryan Schick
 Fetch Rewards, Backend Apprenticeship. 
 
 Language: Javascript 
+
 Utilize:  
-Node.js v14.16.1   
-          Express.js
-          Postman v9.1.3 (https://www.postman.com/downloads/)
+Node.js v14.16.1
+Express.js
+Postman v9.1.3 (https://www.postman.com/downloads/)
    
 
 How to start the web service:
