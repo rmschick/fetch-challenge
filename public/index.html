@@ -24,7 +24,7 @@
       Thank you for taking the time to review my project and code. If you have
       any questions, please feel free to
       <a href="https://www.linkedin.com/in/ryanschick" target="_blank"
-        >connect</a
+        ><b>connect</b></a
       >
       with me!
     </h4>
@@ -60,8 +60,8 @@
           <span class="tab"></span>(https://www.postman.com/downloads/)
           <br />
           <h3>How to start the web service:</h3> Download the project from the
-          public repository at my
-          <a href="https://github.com/rmschick99/fetchBackendExercise.git">github</a> <br /><br>
+          repository at my
+          <a href="https://github.com/rmschick99/fetchBackendExercise.git"><b>github</b></a> <br /><br>
           Open favorite IDE and open a terminal to the root directory 
           
           <br><br> run: 'npm install' to
@@ -71,7 +71,8 @@
           <h3>Navigating the web service:</h3> 
           <b>Transaction: localhost:3000/</b>
           <br>
-           From what I know of industry standard/testing with the experience I have I decided to go with Postman for the POST method when it came to transaction. It's easy, quick, and gives a developer more testing tools and insight into what really is going on. I believe its more true to what backend development would be in a company than to retrieve information from the URL or user without a frontend. 
+           From what I know of industry standard/testing with the experience I have, I decided to go with Postman for the POST method when it came to transaction. It's easy, quick, and gives a developer more testing tools and insight into what really is going on. 
+           I believe its more true to what backend development would be in a company than to retrieve information from the URL or a user without a frontend. 
           <br><br>To add transactions to the web server, start and run the web service, open up Postman, and create a new workspace
           <br>In the input line marked 'Enter request URL' enter 'localhost:3000/transaction'
           <br>Go to 'Body' and select 'raw' and change to 'JSON'
@@ -88,21 +89,26 @@
            
           <b>Spend: localhost:3000/</b> 
           <br>
-          Again, I went with Postman for the POST method when it came to spend. It's easy, quick, and gives a developer more testing tools and insight into what really is going on. 
-          <br>
+          Again, I went with Postman for the POST method when it came to spend. It's easy, quick, and gives a developer more testing tools and insight into what really is going on. It makes sense to send a request to spend points with a POST method.
+          <br><br>
+          The spend route will spend the points of the payers if there is enough points to cover the request.
+          <br><br>
           After starting and running the web service,
           open up Postman and create a new workspace 
           <br><br>
           In the input line marked
-          'Enter request URL'  enter 'localhost:3000/spend' Go to 'Body' and
+          'Enter request URL' 
+          <br>enter 'localhost:3000/spend' 
+          <br>Go to 'Body' and
           select 'raw' and change to 'JSON' 
           <br>
           For testing purposes I went with
-          {"points": 5000} as the input text Click send and the response will be
+          {"points": 5000} as the input text 
+          <br> Click send and the response will be
           recorded in the Body at the bottom. 
           <br><br>
           <b>Balance: localhost:3000/balance</b>
-          <br>This route is made to simply check the balances of
+          <br>This route is a 'GET' route made to simply check the balances of
           the payers. This should show the total balance of each payer that has been added
           through the transaction path
         </p>
