@@ -15,7 +15,7 @@ router.get("/", function (req, res) {
 });
 
 //transaction route
-router.post("/transaction/", (req, res) => {
+router.post("/transaction", (req, res) => {
   const { payer, points, timestamp } = req.body;
   if (!payer || !points || !timestamp) {
     let errorMessage =

@@ -13,4 +13,4 @@ app.listen(port, () => {
   console.log(`Starting app... listening at http://localhost:${port}`);
 });
 
-module.exports = routes;
+module.exports = app;
