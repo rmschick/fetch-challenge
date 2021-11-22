@@ -98,3 +98,16 @@ Tested using values:
         localhost:3000/spend
                 {"points": 5000}
                 {"points": 1000}
+
+Automated Tested: 
+
+        Testing individual values can be time consuming and difficult even if you know what you're doing. I decided to go with Mocha, Mocha-HTTP, and Babel. 
+        These frameworks create an easy automated testing experience. Mocha is one of the best testing frameworks for Node since its powerful and felxible. 
+        This is my first attempt at doing testing and test cases for a backend project. 
+
+        After downloading the repository and installing the dependecies, open your terminal and simply run:
+        
+        npm run test
+
+        This will automatically call Mocha to run the test file that can be found in test/example.test.js
+        The test cases will showcase some of the error handling that I have provided for this project. 
