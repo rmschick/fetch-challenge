@@ -132,10 +132,28 @@ describe("", () => {
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.a("object");
-        res.body.should.have.property("errorMessage");
-        res.body.should.have
-          .property("errorMessage")
-          .eql("ERROR: Please make sure the type of each field is correct. ");
+        res.body.should.have.property("errorHandling");
+        done();
+      });
+  });
+});
+
+describe("", () => {
+  it("it should NOT send transaction with more than the three fields payer, points, and timestamp", (done) => {
+    const transaction = {
+      payer: "Brewers",
+      points: 5000,
+      timestamp: "2020-11-01T14:00:00Z",
+      rank: "First",
+    };
+    chai
+      .request(app)
+      .post("/transaction")
+      .send(transaction)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a("object");
+        res.body.should.have.property("errorHandling");
         done();
       });
   });
