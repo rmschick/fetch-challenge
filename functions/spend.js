@@ -3,7 +3,7 @@
 function spendPoints(points, transactions) {
   if (Object.keys(transactions).length === 0) {
     let noPayerBalances = `No transactions have been added. Please use '/transaction/' route to add payer, points, and timestamp.`;
-    console.log(noPayerBalances);
+    //console.log(noPayerBalances);
     return noPayerBalances;
   }
   let transactionSortByDate = transactions.sort((a, b) =>
@@ -18,12 +18,12 @@ function spendPoints(points, transactions) {
   }
   if (totalPointsFromPayers === 0) {
     let noPointsFromPayers = `No points left to spend from payers. Cannot redeem ${points} points because there are ${totalPointsFromPayers} points from all payers.`;
-    console.log(noPointsFromPayers);
+    //console.log(noPointsFromPayers);
     return noPointsFromPayers;
     //if the total points are less than the points trying to be spent, let the user know
   } else if (totalPointsFromPayers < points) {
-    let insufficientFunds = `Insufficient funds. Cannot redeem ${points} points because there is only a total of ${totalPointsFromPayers} points from all payers.`;
-    console.log(insufficientFunds);
+    let insufficientFunds = `Insufficient funds. Cannot redeem points because there is not enough points from payers to cover.`;
+    //console.log(insufficientFunds);
     return insufficientFunds;
   } else {
     /*Else, start moving through the trasaction list from oldest points to most recent and update objects accordingly*/

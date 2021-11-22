@@ -18,39 +18,55 @@ router.get("/", function (req, res) {
 router.post("/transaction", (req, res) => {
   const { payer, points, timestamp } = req.body;
   if (!payer || !points || !timestamp) {
-    let errorMessage =
-      "ERROR: Please enter payer, points, and timestamp as parameters";
-    res.send(errorMessage);
+    res.json({
+      errorMessage:
+        "ERROR: Please enter payer, points, and timestamp as parameters",
+    });
   } else {
-    const data = {
+    const transactionAdded = {
       payer,
       points: parseInt(points),
       timestamp,
     };
-    addTransaction(data, transactions);
-    res.send(transactions);
+    addTransaction(transactionAdded, transactions);
+    res.json({ message: "Added transaction successfully!", transactionAdded });
   }
 });
 //spend route
 router.post("/spend", (req, res) => {
   const { points } = req.body;
   if (!points) {
-    let errorNoPointsEnter =
-      "ERROR: Please use {'points': INTEGER } as the format to send data";
-    res.send(errorNoPointsEnter);
+    res.json({
+      errorMessage:
+        "ERROR: Please use {'points': INTEGER } as the format to send data",
+    });
   } else if (points < 0) {
-    let errorNegativePoints =
-      "ERROR: Cannot spend negative points. Please provide an integer greater than 0";
-    res.send(errorNegativePoints);
+    res.json({
+      errorMessage:
+        "ERROR: Cannot spend negative points. Please provide an integer greater than 0",
+    });
   } else {
-    let pointsList = spendPoints(points, transactions);
-    res.send(pointsList);
+    let pointsSpentList = spendPoints(points, transactions);
+    if (typeof pointsSpentList === "string") {
+      res.json({
+        errorMessage: pointsSpentList,
+      });
+    } else {
+      res.json({ pointsSpentList });
+    }
   }
 });
 //balance route
 router.get("/balances", (req, res) => {
   let balance = getBalances(transactions);
-  res.send(balance);
+
+  if (typeof balance === "string") {
+    res.json({
+      errorMessage: balance,
+    });
+  } else {
+    res.json(balance);
+  }
 });
 
 module.exports = router;

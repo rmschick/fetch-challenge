@@ -2,7 +2,7 @@
 function getBalances(transactions) {
   if (Object.keys(transactions).length === 0) {
     let noPayerBalances = `No transactions have been added. Please use '/transaction/' route to add payer, points, and timestamp.`;
-    console.log(noPayerBalances);
+    //console.log(noPayerBalances);
     return noPayerBalances;
   }
   let transactionSortByName = JSON.parse(JSON.stringify(transactions)); //copy the transaction object into a new object list
