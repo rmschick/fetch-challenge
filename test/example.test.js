@@ -56,7 +56,7 @@ describe("Without Transactions: GET /balances", () => {
 });
 //With Transactions being added
 describe("POST /transaction", () => {
-  it("it should POST transaction with payer, points, and timestamp being property names", (done) => {
+  it("it should POST transaction with 'payer', 'points', and 'timestamp' being property names and the properties have the correct type", (done) => {
     const transaction = {
       payer: "Brewers",
       points: 5000,
@@ -300,6 +300,8 @@ describe("GET /balances", () => {
       .get("/balances")
       .end((err, res) => {
         res.should.have.status(200);
+        res.body.should.be.a("array");
+        res.body.length.should.be.above(0);
         done();
       });
   });
