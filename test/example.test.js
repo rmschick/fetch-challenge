@@ -42,6 +42,7 @@ describe("Without Transactions: GET /balances", () => {
       .request(app)
       .get("/balances")
       .end((err, res) => {
+        res.should.have.status(200);
         res.body.should.be.a("object");
         res.body.should.have.property("errorMessage");
         res.body.should.have

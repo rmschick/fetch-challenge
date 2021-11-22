@@ -101,8 +101,10 @@ Tested using values:
 
 Automated Tested: 
 
-        Testing individual values can be time consuming and difficult even if you know what you're doing. I decided to go with Mocha, Mocha-HTTP, and Babel. 
-        These frameworks create an easy automated testing experience. Mocha is one of the best testing frameworks for Node since its powerful and felxible. 
+        Testing individual values can be time consuming and difficult even if you know what you're doing. 
+        I decided to go with Mocha, Mocha-HTTP, and Babel. 
+        These frameworks create an easy automated testing experience. 
+        Mocha is one of the best testing frameworks for Node since its powerful and felxible. 
         This is my first attempt at doing testing and test cases for a backend project. 
 
         After downloading the repository and installing the dependecies, open your terminal and simply run:
