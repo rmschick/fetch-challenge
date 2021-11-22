@@ -1,3 +1,9 @@
+/*Test file utilizing Mocha, Mocha-HTTP, and Babel
+Created: 20 November 2021
+Sources: https://mochajs.org/
+          https://www.digitalocean.com/community/tutorials/test-a-node-restful-api-with-mocha-and-chai
+*/
+
 process.env.NODE_ENV = "test";
 
 const chai = require("chai");
@@ -6,7 +12,7 @@ const app = require("../app");
 const should = chai.should();
 
 chai.use(chaiHttp);
-
+//Without transactions
 describe("Without transactions: POST /spend ", () => {
   it("it should not spend points if there are no transactions ", (done) => {
     const spendPoints = {
@@ -47,7 +53,7 @@ describe("Without Transactions: GET /balances", () => {
       });
   });
 });
-
+//With Transactions being added
 describe("POST /transaction", () => {
   it("it should POST transaction with payer, points, and timestamp being property names", (done) => {
     const transaction = {

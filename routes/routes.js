@@ -13,7 +13,7 @@ var express = require("express");
 var router = express.Router();
 
 const transactions = []; // initialize transaction list
-
+//homepage
 router.get("/", function (req, res) {
   res.sendFile(absolutePath);
 });
@@ -38,6 +38,8 @@ router.post("/transaction", (req, res) => {
 router.post("/spend", (req, res) => {
   const { points } = req.body;
   const errorHandling = spendHandlingErrorChecking(points);
+  //if there was an error then send the error message, otherwise call spend points and check if there was another error while computing pointsSpentList
+  //if there was an error then send the error message, otherwise send the pointsSpentList
   if (errorHandling != "passes all tests") {
     res.json({
       errorMessage: errorHandling,
@@ -56,7 +58,7 @@ router.post("/spend", (req, res) => {
 //balance route
 router.get("/balances", (req, res) => {
   let balance = getBalances(transactions);
-
+  //if we got an error message back then send the error message
   if (typeof balance === "string") {
     res.json({
       errorMessage: balance,

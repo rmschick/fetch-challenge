@@ -18,7 +18,9 @@ function transactionHandlingErrorChecking(req) {
         "'payer' : 'STRING', 'points': NUMBER, 'timestamp': 'YYYY-MM-DDTHH:MM:SSZ'",
     };
     return pass;
-  } else if (Object.keys(req.body).length > 3) {
+  }
+  //if there were more than three fields entered, send error
+  else if (Object.keys(req.body).length > 3) {
     pass = {
       errorMessage: "ERROR: Please make sure there are only three fields sent.",
       expectedTypes:
