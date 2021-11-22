@@ -38,7 +38,7 @@ Navigating the web service:
 
                 The template to add a transaction is as follows:
                 {
-                        "payer" : "USERINPUT",
+                        "payer" : "STRING",
                         "points": NUMBER,
                         "timestamp": "YYYY-MM-DDTHH:MM:SSZ"
                 }

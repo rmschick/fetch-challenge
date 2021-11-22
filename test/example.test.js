@@ -70,7 +70,7 @@ describe("POST /transaction", () => {
 });
 
 describe("", () => {
-  it("it should NOT send transaction without the fields payer, points, and timestamp being specified ", (done) => {
+  it("it should NOT send transaction without all three of the fields payer, points, and timestamp", (done) => {
     const transaction = {
       payer: "Brewers",
       points: 5000,
@@ -118,6 +118,29 @@ describe("", () => {
   });
 });
 
+describe("", () => {
+  it("it should NOT send transaction without the types of the fields payer, points, and timestamp being correct ", (done) => {
+    const transaction = {
+      payer: "Brewers",
+      points: "5000",
+      timestamp: "2020-11-01T14:00:00Z",
+    };
+    chai
+      .request(app)
+      .post("/transaction")
+      .send(transaction)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a("object");
+        res.body.should.have.property("errorMessage");
+        res.body.should.have
+          .property("errorMessage")
+          .eql("ERROR: Please make sure the type of each field is correct. ");
+        done();
+      });
+  });
+});
+
 describe("POST /spend", () => {
   it("it should spend points if there are enough points from transactions ", (done) => {
     const spendPoints = {
@@ -145,6 +168,46 @@ describe("", () => {
       .request(app)
       .post("/spend")
       .send(spendPoints)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a("object");
+        res.body.should.have.property("errorMessage");
+        res.body.should.have
+          .property("errorMessage")
+          .eql(
+            "ERROR: Please use {'points': INTEGER } as the format to send data"
+          );
+        done();
+      });
+  });
+});
+
+describe("", () => {
+  it("it should not allow a user to enter anything other than an integer for points ", (done) => {
+    const spendString = {
+      points: "3000",
+    };
+    chai
+      .request(app)
+      .post("/spend")
+      .send(spendString)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a("object");
+        res.body.should.have.property("errorMessage");
+        res.body.should.have
+          .property("errorMessage")
+          .eql(
+            "ERROR: Please use {'points': INTEGER } as the format to send data"
+          );
+      });
+    const spendBoolean = {
+      points: true,
+    };
+    chai
+      .request(app)
+      .post("/spend")
+      .send(spendBoolean)
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.a("object");

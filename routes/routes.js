@@ -17,10 +17,22 @@ router.get("/", function (req, res) {
 //transaction route
 router.post("/transaction", (req, res) => {
   const { payer, points, timestamp } = req.body;
+  //if the sent json doesn't have the name of the fields correctly send an error message
   if (!payer || !points || !timestamp) {
     res.json({
       errorMessage:
         "ERROR: Please enter payer, points, and timestamp as parameters",
+    });
+  } else if (
+    typeof payer != "string" ||
+    typeof points != "number" ||
+    typeof timestamp != "string"
+  ) {
+    res.json({
+      errorMessage:
+        "ERROR: Please make sure the type of each field is correct. ",
+      expectedTypes:
+        "'payer' : 'STRING', 'points': NUMBER, 'timestamp': 'YYYY-MM-DDTHH:MM:SSZ'",
     });
   } else {
     const transactionAdded = {
@@ -35,7 +47,7 @@ router.post("/transaction", (req, res) => {
 //spend route
 router.post("/spend", (req, res) => {
   const { points } = req.body;
-  if (!points) {
+  if (!points || typeof points != "number") {
     res.json({
       errorMessage:
         "ERROR: Please use {'points': INTEGER } as the format to send data",
