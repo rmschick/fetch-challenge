@@ -7,109 +7,102 @@ Fetch Rewards, Backend Apprenticeship.
 
 Language: Javascript 
 
+---
 Utilize:  
-Node.js v14.16.1
-Express.js
-Postman v9.1.3 (https://www.postman.com/downloads/)
+- Node.js v14.16.1
+- Express.js
+- [Postman](https://www.postman.com/downloads/)
    
 
-How to start the web service:
+## How to start the web service:
         
-        Download the project from the public repository : https://github.com/rmschick99/fetchBackendExercise.git
-
-        Open favorite IDE and open a terminal to the root directory
-
-        run: 'npm install' to install modules and dependencies 
-
-        run : node app.js to start the web service
+- Download the project from the public [repository](https://github.com/rmschick99/fetchBackendExercise.git).
+- Open favorite IDE and open a terminal to the root directory
+- run '`npm install` to install modules and dependencies 
+- run `node app.js` to start the web service
         
-Navigating the web service:
+## Navigating the web service:
         
-        Transaction:         
-                From what I know of industry standard/testing with the experience I have I decided to go with Postman for the POST method when it came to transaction. 
-                It's easy, quick, and gives a developer more testing tools and insight into what really is going on. 
-                I believe its more true to what backend development would be in a company than to retrieve information from the URL or user without a frontend. 
+### Transaction:         
+From what I know of industry standard/testing with the experience I have I decided to go with Postman for the POST method when it came to transaction. 
+It's easy, quick, and gives a developer more testing tools and insight into what really is going on. 
+I believe its more true to what backend development would be in a company than to retrieve information from the URL or user without a frontend. 
 
-                To add transactions to the web server, start and run the web service, open up Postman, and create a new workspace
+To add transactions to the web server, start and run the web service, open up Postman, and create a new workspace
+- In the input line marked `Enter request URL` enter `localhost:3000/transaction`
+- Go to `Body` and select `raw` and change to `JSON`
+- The template to add a transaction is as follows:
+ ```json 
+ {
+    "payer" : "STRING",
+    "points": 100000,
+    "timestamp": "YYYY-MM-DDTHH:MM:SSZ"
+ }
+ ```
 
-                In the input line marked 'Enter request URL' enter 'localhost:3000/transaction'
+ - Click `Send`
+   - This will allow the user to use the other commands to spend points and check the balances.
 
-                Go to 'Body' and select 'raw' and change to 'JSON'
+## Spend:
+Again, I went with Postman for the POST method when it came to spend. It's easy, quick, and gives a developer more testing tools and insight into what really is going on. 
 
-                The template to add a transaction is as follows:
-                {
-                        "payer" : "STRING",
-                        "points": NUMBER,
-                        "timestamp": "YYYY-MM-DDTHH:MM:SSZ"
-                }
+After starting and running the web service, open up Postman and create a new workspace
 
-                Click 'Send'
-                This will allow the user to use the other commands to spend points and check the balances.
+- In the input line marked 'Enter request URL' enter 'localhost:3000/spend'
+- Go to 'Body' and select 'raw' and change to 'JSON'
+- For testing purposes I went with {"points": 5000} as the input text
+- Click send and the response will be recorded in the Body at the bottom. 
 
-        Spend:
-                Again, I went with Postman for the POST method when it came to spend. It's easy, quick, and gives a developer more testing tools and insight into what really is going on. 
+  Balance: localhost:3000/balance
+          This route is made to simply check the balances of the payers. This should show the total balance of each payer that has been added through the transaction path
 
-                After starting and running the web service, open up Postman and create a new workspace
+## Tested using values:
 
-                In the input line marked 'Enter request URL' enter 'localhost:3000/spend'
+  Postman
+  localhost:3000/transaction
+  These are all seperate POSTS, please utilize a test POST `ONE` at a time. Or create your own!
+  ``` json
+ {
+   "payer" : "DANNON",
+   "points": 1000,
+   "timestamp": "2020-11-02T14:00:00Z"
+ }
+ { 
+   "payer": "UNILEVER", 
+   "points": 200, 
+   "timestamp": "2020-10-31T11:00:00Z" 
+ }
+ {       
+   "payer": "DANNON", 
+   "points": -200, 
+   "timestamp": "2020-10-31T15:00:00Z" 
+ }
+ {
+   "payer": "MILLER COORS",
+   "points": 10000,
+   "timestamp": "2020-11-01T14:00:00Z"
+ }
+ {       
+   "payer": "DANNON", 
+   "points": 300, 
+   "timestamp": "2020-10-31T10:00:00Z" 
+ }
 
-                Go to 'Body' and select 'raw' and change to 'JSON'
+```
+  Postman 
+  localhost:3000/spend
+          {"points": 5000}
+          {"points": 1000}
 
-                For testing purposes I went with {"points": 5000} as the input text
+## Automated Tested: 
 
-                Click send and the response will be recorded in the Body at the bottom. 
+Testing individual values can be time consuming and difficult, even if you know what you're doing. 
+I decided to go with `Mocha`, `Mocha-HTTP`, and `Babel`. 
+These frameworks create an easy automated testing experience. 
+Mocha is one of the best testing frameworks for Node since its powerful and felxible. 
+This is my first attempt at doing testing and test cases for a backend project. 
 
-        Balance: localhost:3000/balance
-                This route is made to simply check the balances of the payers. This should show the total balance of each payer that has been added through the transaction path
+After downloading the repository and installing the dependecies, open your terminal and simply run `npm run test`.
 
-Tested using values:
-        
-        Postman
-        localhost:3000/transaction
-        These are all seperate POSTS, please utilize a test POST one at a time. Or create your own!
-                {
-                        "payer" : "DANNON",
-                        "points": 1000,
-                        "timestamp": "2020-11-02T14:00:00Z"
-                }
-                { 
-                        "payer": "UNILEVER", 
-                        "points": 200, 
-                        "timestamp": "2020-10-31T11:00:00Z" 
-                }
-                {       
-                        "payer": "DANNON", 
-                        "points": -200, 
-                        "timestamp": "2020-10-31T15:00:00Z" 
-                }
-                {
-                        "payer": "MILLER COORS",
-                        "points": 10000,
-                        "timestamp": "2020-11-01T14:00:00Z"
-                }
-                {       
-                        "payer": "DANNON", 
-                        "points": 300, 
-                        "timestamp": "2020-10-31T10:00:00Z" 
-                }
-       
-
-        Postman 
-        localhost:3000/spend
-                {"points": 5000}
-                {"points": 1000}
-
-Automated Tested: 
-
-        Testing individual values can be time consuming and difficult, even if you know what you're doing. 
-        I decided to go with Mocha, Mocha-HTTP, and Babel. 
-        These frameworks create an easy automated testing experience. 
-        Mocha is one of the best testing frameworks for Node since its powerful and felxible. 
-        This is my first attempt at doing testing and test cases for a backend project. 
-
-        After downloading the repository and installing the dependecies, open your terminal and simply run:
-        
-        npm run test
-
-        This will automatically call Mocha to run the test file that can be found in test/example.test.js
-        The test cases will showcase some of the error handling that I have provided for this project. 
+This will automatically call Mocha to run the test file that can be found in test/example.test.js
+The test cases will showcase some of the error handling that I have provided for this project. 
