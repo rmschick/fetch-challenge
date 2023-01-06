@@ -1,4 +1,4 @@
-# fetchBackendExercise
+# fetch-challenge
 
 Ryan Schick
 03 November 2021
